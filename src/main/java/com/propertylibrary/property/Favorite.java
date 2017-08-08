@@ -1,13 +1,13 @@
 package com.propertylibrary.property;
 
+import com.propertylibrary.base.Model;
+
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.propertylibrary.base.Model;
 
 public class Favorite {
 	private final Model model;
@@ -19,8 +19,10 @@ public class Favorite {
 	}
 
 	public void create(final String _idProperty) {
+		if (_idProperty == "" || _idProperty == null)
+			throw new IllegalArgumentException("`_idProperty` tidak valid");
 		if (property.findOne(_idProperty) == null)
-			throw new Error("Data properti tidak ditemukan.");
+			throw new IllegalArgumentException("data properti tidak ditemukan");
 		if (model.find(new HashMap<String, Object>(){{
 			put("property", new ObjectId(_idProperty));
 		}}).isEmpty()) model.create(new HashMap<String, Object>(){{

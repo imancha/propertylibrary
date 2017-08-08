@@ -12,7 +12,15 @@ public class Database {
 	private static String name = "property";
 
 	public static void setConnection(String connectionURI) {
-		Database.mongo = new MongoClient(new MongoClientURI(connectionURI));
+		if (connectionURI == "" || connectionURI == null)
+			throw new IllegalArgumentException("connectionURI tidak valid");
+
+		try {
+			Database.mongo = new MongoClient(new MongoClientURI(connectionURI));
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("tidak dapat terhubung dengan " +
+					                                   "database");
+		}
 	}
 
 	public static void setConnection(String connectionURI, String databaseName) {
@@ -21,8 +29,9 @@ public class Database {
 	}
 
 	public static void setName(String name) {
-		if (name != null || name != "")
-			Database.name = name;
+		if (name == "" || name == null)
+			throw new IllegalArgumentException("nama database tidak valid");
+		Database.name = name;
 	}
 
 	public static MongoDatabase getDatabase() {

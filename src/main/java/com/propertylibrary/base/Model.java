@@ -19,25 +19,28 @@ public class Model {
 	}
 
 	public Model(String collection) {
-		this.collection = collection;
+		this.setCollection(collection);
 	}
 
 	public void setCollection(String collection) {
 		if (collection == null || collection == "")
-			throw new Error("Nama `collection` tidak boleh kosong.");
+			throw new IllegalArgumentException("nama `collection` tidak valid");
 
 		this.collection = collection;
 	}
 
 	public void create(Map<String, Object> document) {
 		if (document == null || document.isEmpty())
-			throw new Error("`Document` tidak boleh kosong.");
+			throw new IllegalArgumentException("`document` tidak valid");
 
 		Database.getCollection(collection)
 				.insertOne(new Document(document));
 	}
 
 	public Map<String, Object> findOne(String _id) {
+		if (_id == null || _id == "")
+			throw new IllegalArgumentException("`_id` tidak valid");
+
 		document = Database.getCollection(collection)
 				           .find(new Document("_id", new ObjectId(_id)))
 				           .first();
@@ -66,6 +69,9 @@ public class Model {
 
 	public List<Map<String, Object>> find(Map<String, Object> query) {
 		MongoCursor<Document> cursor;
+
+		if (query == null || query.isEmpty())
+			throw new IllegalArgumentException("`query` tidak valid");
 
 		documents = new LinkedList<>();
 		cursor = Database.getCollection(collection)
@@ -108,6 +114,9 @@ public class Model {
 	                                      int skip, int limit) {
 		MongoCursor<Document> cursor;
 
+		if (query == null || query.isEmpty())
+			throw new IllegalArgumentException("`query` tidak valid");
+
 		documents = new LinkedList<>();
 		cursor = Database.getCollection(collection)
 				         .find(new Document(query))
@@ -131,6 +140,11 @@ public class Model {
 	                                      int skip, int limit) {
 		MongoCursor<Document> cursor;
 
+		if (query == null || query.isEmpty())
+			throw new IllegalArgumentException("`query` tidak valid");
+		if (sort == null || sort.isEmpty())
+			throw new IllegalArgumentException("`sort` tidak valid");
+
 		documents = new LinkedList<>();
 		cursor = Database.getCollection(collection)
 				         .find(new Document(query))
@@ -151,6 +165,11 @@ public class Model {
 	}
 
 	public void update(String _id, Map<String, Object> document) {
+		if (_id == null || _id == "")
+			throw new IllegalArgumentException("`_id` tidak valid");
+		if (document == null || document.isEmpty())
+			throw new IllegalArgumentException("`document` tidak valid");
+
 		Database.getCollection(collection)
 				.updateOne(
 						new Document("_id", new ObjectId(_id)),
@@ -159,6 +178,9 @@ public class Model {
 	}
 
 	public void remove(String _id) {
+		if (_id == null || _id == "")
+			throw new IllegalArgumentException("`_id` tidak valid");
+
 		Database.getCollection(collection)
 				.deleteOne(new Document("_id", new ObjectId(_id)));
 	}

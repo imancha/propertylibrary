@@ -14,10 +14,11 @@ public class User extends Model {
 
 	public void email(Context context, String email, String subject, String content) {
 		if (email == "" || email == null)
-			throw new Error("email is required.");
-
+			throw new IllegalArgumentException("`email` tidak valid");
+		if (subject == "" || subject == null)
+			throw new IllegalArgumentException("`subject` tidak valid");
 		if (content == "" || content == null)
-			throw new Error("content is required.");
+			throw new IllegalArgumentException("`content` tidak valid");
 
 		Intent intent = new Intent();
 
@@ -31,15 +32,9 @@ public class User extends Model {
 			context.startActivity(intent);
 	}
 
-	/**
-	 * @param context
-	 * @param phone
-	 * @throws Exception
-	 */
-	public void call(Context context, String phone) throws
-			Exception {
+	public void call(Context context, String phone) {
 		if (phone == "" || phone == null)
-			throw new Exception("phone is required.");
+			throw new IllegalArgumentException("`phone` tidak valid");
 
 		Intent intent = new Intent();
 
