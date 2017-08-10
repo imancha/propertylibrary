@@ -12,6 +12,16 @@ public class User extends Model {
 		super.setCollection("User");
 	}
 
+	/**
+	 * Kirim email.
+	 *
+	 * @param context konteks dari aplikasi
+	 * @param email alamat email tujuan
+	 * @param subject subyek dari email
+	 * @param content isi atau konten dari email
+	 * @throws IllegalArgumentException jika email, subyek atau konten kosong
+	 * atau null
+	 */
 	public void email(Context context, String email, String subject, String content) {
 		if (email == "" || email == null)
 			throw new IllegalArgumentException("`email` tidak valid");
@@ -32,6 +42,12 @@ public class User extends Model {
 			context.startActivity(intent);
 	}
 
+	/**
+	 * @param context konteks dari aplikasi
+	 * @param phone nomor telepon tujuan
+	 * @throws IllegalArgumentException jika nomor telepon kosong atau null
+	 *
+	 */
 	public void call(Context context, String phone) {
 		if (phone == "" || phone == null)
 			throw new IllegalArgumentException("`phone` tidak valid");

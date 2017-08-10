@@ -12,7 +12,7 @@ public class PropertyTest {
 		try {
 			property.calcKPR(0, 0.10, 5);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`price` tidak valid", e.getMessage().toString());
+			Assert.assertEquals("`price` tidak valid", e.getMessage());
 		}
 	}
 
@@ -23,8 +23,7 @@ public class PropertyTest {
 		try {
 			property.calcKPR(100000000, 0, 5);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`interestRate` tidak valid", e.getMessage().toString
-					                                                               ());
+			Assert.assertEquals("`interestRate` tidak valid", e.getMessage());
 		}
 	}
 
@@ -35,8 +34,7 @@ public class PropertyTest {
 		try {
 			property.calcKPR(100000000, 0.10, 0);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`numberOfYears` tidak valid", e.getMessage().toString
-					                                                               ());
+			Assert.assertEquals("`numberOfYears` tidak valid", e.getMessage());
 		}
 	}
 

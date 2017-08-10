@@ -31,7 +31,7 @@ public class FavoriteTest {
 		try {
 			favorite.create(null);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`_idProperty` tidak valid", e.getMessage().toString());
+			Assert.assertEquals("`_idProperty` tidak valid", e.getMessage());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class FavoriteTest {
 		try {
 			favorite.create("59817a9eddceff1310b05691");
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("data properti tidak ditemukan", e.getMessage().toString());
+			Assert.assertEquals("data properti tidak ditemukan", e.getMessage());
 		}
 	}
 
@@ -72,7 +72,7 @@ public class FavoriteTest {
 		try {
 			favorite.remove("");
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`_id` tidak valid", e.getMessage().toString());
+			Assert.assertEquals("`_id` tidak valid", e.getMessage());
 		}
 	}
 
@@ -82,7 +82,7 @@ public class FavoriteTest {
 		try {
 			favorite.remove(null);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`_id` tidak valid", e.getMessage().toString());
+			Assert.assertEquals("`_id` tidak valid", e.getMessage());
 		}
 	}
 
@@ -105,7 +105,7 @@ public class FavoriteTest {
 		long total = Database.getCollection("Favorite").count();
 
 		try {
-			favorite.remove("59817a8bddceff1310b0566f");
+			favorite.remove("598a5722a988c182c69eb843");
 			Assert.assertEquals(total, Database.getCollection("Favorite").count());
 		} catch (IllegalArgumentException e) {
 			Assert.assertNull(e);

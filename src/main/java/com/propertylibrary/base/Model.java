@@ -18,10 +18,18 @@ public class Model {
 		//
 	}
 
+	/**
+	 * @param collection  nama collection
+	 * @throws IllegalArgumentException jika nama collection kosong atau null
+	 */
 	public Model(String collection) {
 		this.setCollection(collection);
 	}
 
+	/**
+	 * @param collection  nama collection
+	 * @throws IllegalArgumentException jika nama collection kosong atau null
+	 */
 	public void setCollection(String collection) {
 		if (collection == null || collection == "")
 			throw new IllegalArgumentException("nama `collection` tidak valid");
@@ -29,6 +37,10 @@ public class Model {
 		this.collection = collection;
 	}
 
+	/**
+	 * @param document  data yang akan disimpan
+	 * @throws IllegalArgumentException  jika data yang disimpan kosong atau null
+	 */
 	public void create(Map<String, Object> document) {
 		if (document == null || document.isEmpty())
 			throw new IllegalArgumentException("`document` tidak valid");
@@ -37,6 +49,11 @@ public class Model {
 				.insertOne(new Document(document));
 	}
 
+	/**
+	 * @param _id ID dari data pada collection
+	 * @throws IllegalArgumentException jika ID kosong atau null
+	 * @return  data pada collection sesuai ID
+	 */
 	public Map<String, Object> findOne(String _id) {
 		if (_id == null || _id == "")
 			throw new IllegalArgumentException("`_id` tidak valid");
@@ -48,6 +65,9 @@ public class Model {
 		return document;
 	}
 
+	/**
+	 * @return  seluruh data pada collection
+	 */
 	public List<Map<String, Object>> find() {
 		MongoCursor<Document> cursor;
 
@@ -67,6 +87,11 @@ public class Model {
 		return documents;
 	}
 
+	/**
+	 * @param query kriteria pencarian
+	 * @throws IllegalArgumentException jika kriteria pencarian kosong atau null
+	 * @return  data pada collection sesuai kriteria
+	 */
 	public List<Map<String, Object>> find(Map<String, Object> query) {
 		MongoCursor<Document> cursor;
 
@@ -89,6 +114,11 @@ public class Model {
 		return documents;
 	}
 
+	/**
+	 * @param skip  jumlah skip dari data pada collection
+	 * @param limit jumlah limit dari data pada collection
+	 * @return      sejumlah data pada collection
+	 */
 	public List<Map<String, Object>> find(int skip, int limit) {
 		MongoCursor<Document> cursor;
 
@@ -110,6 +140,13 @@ public class Model {
 		return documents;
 	}
 
+	/**
+	 * @param query kriteria pencarian
+	 * @param skip  jumlah skip dari data pada collection
+	 * @param limit jumlah limit dari data pada collection
+	 * @throws IllegalArgumentException jika kriteria pencarian kosong atau null
+	 * @return      sejumlah data pada collection
+	 */
 	public List<Map<String, Object>> find(Map<String, Object> query,
 	                                      int skip, int limit) {
 		MongoCursor<Document> cursor;
@@ -135,6 +172,14 @@ public class Model {
 		return documents;
 	}
 
+	/**
+	 * @param query kriteria pencarian
+	 * @param sort  kriteria pengurutan data
+	 * @param skip  jumlah skip dari data pada collection
+	 * @param limit jumlah limit dari data pada collection
+	 * @throws IllegalArgumentException jika kriteria pencarian kosong atau null
+	 * @return  sejumlah data pada collection
+	 */
 	public List<Map<String, Object>> find(Map<String, Object> query,
 	                                      Map<String, Object> sort,
 	                                      int skip, int limit) {
@@ -164,6 +209,12 @@ public class Model {
 		return documents;
 	}
 
+	/**
+	 * @param _id ID dari data pada collection yang akan diubah
+	 * @param document  data yang digunakan untuk perubahan data
+	 * @throws IllegalArgumentException jika ID kosong atau null
+	 * @throws IllegalArgumentException jika data ubah kosong atau null
+	 */
 	public void update(String _id, Map<String, Object> document) {
 		if (_id == null || _id == "")
 			throw new IllegalArgumentException("`_id` tidak valid");
@@ -177,6 +228,10 @@ public class Model {
 				);
 	}
 
+	/**
+	 * @param _id ID dari data pada collection yang akan dihapus
+	 * @throws IllegalArgumentException jika ID kosong atau null
+	 */
 	public void remove(String _id) {
 		if (_id == null || _id == "")
 			throw new IllegalArgumentException("`_id` tidak valid");

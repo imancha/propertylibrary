@@ -20,6 +20,16 @@ public class Property extends Model {
 		super.setCollection("Property");
 	}
 
+	/**
+	 * Hitung kalkulasi KPR.
+	 *
+	 * @param price total harga atau biaya
+	 * @param interestRate  besaran bunga
+	 * @param numberOfYears jumlah tahun
+	 * @throws IllegalArgumentException jika jumlah biaya, bunga atau tahun
+	 * tidak lebih besar dari 0
+	 * @return  total biaya per bulan
+	 */
 	public double calcKPR(double price, double interestRate, int numberOfYears) {
 		if (!(price > 0)) throw new IllegalArgumentException("`price` tidak valid");
 		if (!(interestRate > 0)) throw new IllegalArgumentException("`interestRate` tidak valid");
@@ -27,6 +37,13 @@ public class Property extends Model {
 		return Math.round(price * (interestRate / 12) * (1 / (1 - (1 / (Math.pow(1 + (interestRate / 12), numberOfYears * 12))))));
 	}
 
+	/**
+	 * Bagikan info properti.
+	 *
+	 * @param context konteks dari aplikasi
+	 * @param content isi atau konten untuk dibagikan
+	 * @param exclusions daftar package yang tidak diinginkan
+	 */
 	public void share(Context context, String content, String[] exclusions) {
 		if (content == "" || content == null)
 			throw new IllegalArgumentException("`content` tidak valid");
