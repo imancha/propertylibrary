@@ -29,7 +29,7 @@ public class FavoriteTest {
 	public void U4_S1_A() {
 		favorite = new Favorite();
 		try {
-			favorite.create(null);
+			favorite.create(null, null);
 		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("`_idProperty` tidak valid", e.getMessage());
 		}
@@ -39,7 +39,7 @@ public class FavoriteTest {
 	public void U4_S1_B() {
 		favorite = new Favorite();
 		try {
-			favorite.create("59817a9eddceff1310b05691");
+			favorite.create("59817a9eddceff1310b05691", "59817a9eddceff1310b05691");
 		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("data properti tidak ditemukan", e.getMessage());
 		}
@@ -49,7 +49,7 @@ public class FavoriteTest {
 	public void U4_S1_C() {
 		favorite = new Favorite();
 		try {
-			favorite.create("598922880166fb14303ca476");
+			favorite.create("598922880166fb14303ca476", "59817a9eddceff1310b05691");
 			Assert.assertNotNull(
 					Database.getCollection("Favorite")
 							.find(new Document("property", new ObjectId("598922880166fb14303ca476")))
@@ -63,16 +63,16 @@ public class FavoriteTest {
 	@Test
 	public void U4_S2_A() {
 		favorite = new Favorite();
-		Assert.assertEquals(1, favorite.find().size());
+		Assert.assertEquals(1, favorite.find("59817a9eddceff1310b05691").size());
 	}
 
 	@Test
 	public void U4_S3_A() {
 		favorite = new Favorite();
 		try {
-			favorite.remove("");
+			favorite.remove("", "");
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`_id` tidak valid", e.getMessage());
+			Assert.assertEquals("`_idProperty` tidak valid", e.getMessage());
 		}
 	}
 
@@ -80,9 +80,9 @@ public class FavoriteTest {
 	public void U4_S3_B() {
 		favorite = new Favorite();
 		try {
-			favorite.remove(null);
+			favorite.remove(null, null);
 		} catch (IllegalArgumentException e) {
-			Assert.assertEquals("`_id` tidak valid", e.getMessage());
+			Assert.assertEquals("`_idProperty` tidak valid", e.getMessage());
 		}
 	}
 
@@ -92,7 +92,7 @@ public class FavoriteTest {
 		long total = Database.getCollection("Favorite").count();
 
 		try {
-			favorite.remove("598923560166fb14fdde52a8");
+			favorite.remove("598923560166fb14fdde52a8", "59817a9eddceff1310b05691");
 			Assert.assertEquals(total - 1, Database.getCollection("Favorite").count());
 		} catch (IllegalArgumentException e) {
 			Assert.assertNull(e);
@@ -105,7 +105,7 @@ public class FavoriteTest {
 		long total = Database.getCollection("Favorite").count();
 
 		try {
-			favorite.remove("598a5722a988c182c69eb843");
+			favorite.remove("598a5722a988c182c69eb843", "59817a9eddceff1310b05691");
 			Assert.assertEquals(total, Database.getCollection("Favorite").count());
 		} catch (IllegalArgumentException e) {
 			Assert.assertNull(e);
