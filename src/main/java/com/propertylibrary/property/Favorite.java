@@ -25,6 +25,7 @@ public class Favorite {
 	 * Tambah data favorit.
 	 *
 	 * @param _idProperty ID dari data properti yang akan ditambahkan
+	 * @param _idUser ID dari user pemilik data properti yang akan ditambahkan
 	 * @throws IllegalArgumentException jika ID properti kosong atau null
 	 * @throws IllegalArgumentException jika data properti tidak ditemukan
 	 */
@@ -49,6 +50,7 @@ public class Favorite {
 	/**
 	 * Lihat daftar properti favorit.
 	 *
+	 * @param _idUser ID dari user pemilik data properti
 	 * @return  seluruh data favorit
 	 */
 	public List<Map<String, Object>> find(final String _idUser) {

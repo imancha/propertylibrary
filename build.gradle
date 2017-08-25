@@ -14,7 +14,7 @@ repositories {
 }
 
 group = 'com.propertylibrary'
-version = '1.0.2'
+version = '1.0.3'
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -23,7 +23,6 @@ apply plugin: 'com.jfrog.bintray'
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
-    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 16
